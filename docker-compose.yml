@@ -1,0 +1,28 @@
+
+services:
+
+  redis:  #Docker downloads a Redis image and runs Redis.
+    image: redis:7-alpine
+    container_name: darkwatch-redis
+    restart: unless-stopped
+
+  backend:  #Docker uses the Dockerfile inside the backend folder to build the backend container.
+    build: ./backend
+    container_name: darkwatch-backend
+    ports:
+      - "3000:3000"  #This maps port 3000 on your computer to port 3000 inside the backend container.
+    environment:
+      REDIS_HOST: redis #These tell the backend and scanner how to connect to Redis.
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+
+  scanner: #Docker builds our Python scanner container.The scanner runs separately from the Node.js backend.
+    build: ./scanner
+    container_name: darkwatch-scanner
+    environment:
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - redis
+    restart: unless-stopped

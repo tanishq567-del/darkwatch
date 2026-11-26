@@ -1,0 +1,6 @@
+
+redis==5.2.1
+bleach==6.2.0
+
+#It tells Python which external libraries the project needs.
+#Instead of manually installing every library inside the scanner, Docker will install them from this file.

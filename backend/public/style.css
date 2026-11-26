@@ -1,0 +1,211 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #0b1120;
+    color: #e5e7eb;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 5%;
+    border-bottom: 1px solid #263247;
+    background: #111827;
+}
+
+.brand {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.logo {
+    background: #2563eb;
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+h1 {
+    margin: 0;
+    font-size: 21px;
+}
+
+header p {
+    margin: 4px 0 0;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+.status {
+    color: #86efac;
+    border: 1px solid #166534;
+    padding: 7px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+main {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.intro h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.intro p,
+.muted {
+    color: #9ca3af;
+}
+
+.panel {
+    background: #111827;
+    border: 1px solid #263247;
+    border-radius: 14px;
+    padding: 22px;
+    margin-top: 20px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+textarea {
+    width: 100%;
+    min-height: 95px;
+    resize: vertical;
+    padding: 13px;
+    background: #0b1120;
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    font: inherit;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 11px 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    filter: brightness(1.12);
+}
+
+.secondary {
+    background: #374151;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 13px;
+    flex-wrap: wrap;
+}
+
+#message {
+    color: #93c5fd;
+    min-height: 20px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.stat {
+    margin-top: 15px;
+}
+
+.stat strong {
+    display: block;
+    font-size: 27px;
+    margin-top: 10px;
+}
+
+.stat strong.small {
+    font-size: 16px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.finding {
+    border: 1px solid #334155;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 12px;
+    overflow-wrap: anywhere;
+}
+
+.finding h4 {
+    margin: 0 0 8px;
+    color: #93c5fd;
+}
+
+.finding p {
+    color: #d1d5db;
+}
+
+.tag {
+    display: inline-block;
+    background: #422006;
+    color: #fcd34d;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+}
+
+.disclaimer {
+    color: #9ca3af;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
+@media (max-width: 700px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        padding: 18px;
+    }
+
+    main {
+        padding: 0 14px;
+    }
+}
+
+/* CSS controls how the website looks.
+background	-Background color
+color	-Text color
+padding	-Space inside elements
+margin	-Space outside elements
+border	-Border around elements
+display: flex	-Aligns elements using Flexbox
+display: grid	-Creates grid layouts
+@media-Adjusts layout for different screen sizes
+
+We use CSS to give the dashboard a dark cybersecurity-themed appearance.*/

@@ -1,0 +1,14 @@
+
+{
+  "name": "darkwatch-backend",
+  "version": "1.0.0",
+  "description": "DarkWatch simulated threat intelligence dashboard",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "redis": "^4.7.0"
+  }
+}

@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DarkWatch | Threat Monitoring</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>  <!--This creates the top section of the dashboard.
+
+We have:
+- DarkWatch logo.
+- Project name.
+- Demo Mode status.-->
+    <div class="brand">
+        <div class="logo">D</div>
+        <div>
+            <h1>DarkWatch</h1>
+            <p>Threat intelligence monitoring demo</p>
+        </div>
+    </div>
+
+    <span class="status">● DEMO MODE</span>
+</header>
+
+<main>
+
+    <section class="intro">
+        <h2>Brand & keyword monitoring</h2>
+        <p>
+            Run a scan against a fictional dataset
+            and review detected mentions.
+        </p>
+    </section>
+
+    <section class="panel">
+        <h3>Keywords to monitor</h3>
+
+        <p class="muted">
+            Separate keywords with commas.
+            Maximum 20 terms.
+        </p>
+
+        <textarea id="keywords"
+        placeholder="Acme Corp, Project Orion, admin@acme.com"></textarea> <!--This is where the user enters keywords. The ID keywords is important because JavaScript will use it to access the input.-->
+
+        <div class="buttons">
+            <button id="scanButton">Simulate Scan</button> <!--This button triggers the scanning process.-->
+            <button class="secondary" id="clearButton">
+                Clear Findings
+            </button>
+        </div>
+
+        <p id="message" role="status"></p>
+    </section>
+
+    <section class="stats">
+
+        <div class="stat panel">
+            <span class="muted">Findings displayed</span>
+            <strong id="count">0</strong>
+        </div>
+
+        <div class="stat panel">
+            <span class="muted">Scanner</span>
+            <strong class="small">Python worker</strong>
+        </div>
+
+        <div class="stat panel">
+            <span class="muted">Data source</span>
+            <strong class="small">Fictional samples</strong>
+        </div>
+
+    </section>
+
+    <section class="panel">
+
+        <div class="section-heading">
+            <h3>Findings feed</h3>
+            <button class="secondary" id="refreshButton">
+                Refresh
+            </button>
+        </div>
+
+        <div id="findings" class="findings"> <!--This is where the scanner results will appear. JavaScript will update this section dynamically.-->
+            <p class="muted">
+                No findings yet. Run a simulated scan.
+            </p>
+        </div>
+
+    </section>
+
+    <p class="disclaimer">
+        Demo only: findings are generated from fictional sample text.
+        This is not a real dark-web scanner.
+    </p>
+
+</main>
+
+<script src="app.js"></script>
+
+</body>
+</html>
