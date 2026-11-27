@@ -1,12 +1,18 @@
-#	Uses a Python image as the base
-FROM python:3.12-slim 
-# Sets the working directory inside the container
+# Use Python 3.12
+FROM python:3.12-slim
+
+# Set working directory
 WORKDIR /scanner
-#Copies files into the container
+
+# Copy and install dependencies
 COPY requirements.txt .
-# Executes a command during the image build
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy scanner code
 COPY scanner.py .
-# Starts the scanner when the container runs
-CMD ["python", "-u", "scanner.py"]
+
+# Keep Python logs visible in Render
+ENV PYTHONUNBUFFERED=1
+
+# Start the scanner
+CMD ["python", "scanner.py"]
