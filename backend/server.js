@@ -7,12 +7,16 @@ const app = express(); //This creates our Express application.
 app.use(express.json({ limit: "20kb" })); //This allows the backend to read JSON data sent by the dashboard, with a size limit.
 app.use(express.static("public")); //This tells Express to serve the files inside the public folder. That is how the browser can load our HTML, CSS and JavaScript.
 
-const redis = createClient({  
-  socket: {
-    host: process.env.REDIS_HOST || "localhost",
-    port: Number(process.env.REDIS_PORT || 6379)        //The backend connects to Redis. Inside Docker, redis is the hostname because it is the name of our Redis service.
-  }
-});
+const redis = process.env.REDIS_URL
+  ? createClient({
+      url: process.env.REDIS_URL
+    })
+  : createClient({
+      socket: {
+        host: process.env.REDIS_HOST || "localhost",
+        port: Number(process.env.REDIS_PORT || 6379)
+      }
+    });
 
 redis.on("error", (err) => { 
   console.error("Redis error:", err.message);
@@ -79,9 +83,11 @@ async function start() {
     });
   });
 
-  app.listen(3000, "0.0.0.0", () => {
-    console.log("DarkWatch is running on port 3000");
-  });
+  const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`DarkWatch is running on port ${PORT}`);
+});
 }
 
 start().catch((err) => {
