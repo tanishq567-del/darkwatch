@@ -1,4 +1,5 @@
-
+import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json #	Converts job data between JSON and Python JSON (JavaScript Object Notation) is a lightweight, text-based data format used to store and exchange information between systems, such as a web server and a client application
 import os #	Reads environment variables
 import re # 	Searches for keywords
@@ -7,6 +8,38 @@ from datetime import datetime, timezone # 	Records the time of a finding
 
 import bleach #	Sanitizes text
 import redis #Connects Python to Redis Redis (Remote Dictionary Server) is an open-source, in-memory data structure store used primarily as a high-speed database, cache, and message broker
+
+
+class HealthHandler(BaseHTTPRequestHandler): #handles browser requests.
+
+    def do_GET(self):
+        if self.path == "/health": #returns a successful response.
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"DarkWatch scanner is running")
+        else:
+            self.send_response(404)
+            self.end_headers()
+
+    def log_message(self, format, *args):
+        pass
+
+
+def start_health_server():
+    port = int(os.environ.get("PORT", "10000")) #uses the port assigned by Render.
+
+    server = ThreadingHTTPServer(
+        ("0.0.0.0", port),
+        HealthHandler
+    )
+
+    server.serve_forever()
+
+
+threading.Thread(                    #runs the HTTP server separately.
+    target=start_health_server,
+    daemon=True
+).start()
 
 # Sample data is fictional and is used for testing only. Each sample has two parts:source — where the sample is supposedly from.text — the content we want to inspect.
 sample_data = [
@@ -36,15 +69,27 @@ sample_data = [
     }
 ]
 
-redis_host = os.getenv("REDIS_HOST", "localhost") #This reads the Redis hostname from the environment. When running through Docker, our hostname will be redis because that's the service name in Docker Compose.
-redis_port = int(os.getenv("REDIS_PORT", "6379")) #Redis commonly uses port 6379.
 
-#This creates our Redis client.
-client = redis.Redis(
-    host=redis_host,
-    port=redis_port,
-    decode_responses=True
-)
+# Connect to Render Redis using REDIS_URL.
+# If REDIS_URL is not available, use local Docker settings.
+
+redis_url = os.getenv("REDIS_URL")
+
+if redis_url:
+    client = redis.Redis.from_url(
+        redis_url,
+        decode_responses=True
+    )
+else:
+    redis_host = os.getenv("REDIS_HOST", "localhost") #This reads the Redis hostname from the environment. When running through Docker, our hostname will be redis because that's the service name in Docker Compose.
+    redis_port = int(os.getenv("REDIS_PORT", "6379")) #Redis commonly uses port 6379.
+
+    client = redis.Redis( #This creates our Redis client.
+        host=redis_host,
+        port=redis_port,
+        decode_responses=True
+    )
+
 
 # This function:
 # 1. Receives text.
