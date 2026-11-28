@@ -46,9 +46,14 @@ Open a terminal in the project folder and run:
 
 docker compose up --build
 
-Open the application:
-
-http://localhost:3000
+Live Deployment Details – DarkWatch
+Project Name: DarkWatch – Threat Intelligence Monitoring System
+Dashboard Application: https://darkwatch-backend.onrender.com
+Backend Health Endpoint: https://darkwatch-backend.onrender.com/api/health
+Scanner Health Endpoint: https://darkwatch-scanner.onrender.com/health
+Deployment Platform: Render
+Containerization: Docker
+Supporting Services: Redis and Python Scanner Worker
 
 ## Limitations
 
